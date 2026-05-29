@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="min-h-screen flex items-center justify-center border-b border-gray-200">
+
+    <div class="text-center px-6 max-w-4xl">
+
+        <p class="uppercase tracking-[0.3em] text-sm text-gray-500 mb-6">
+            A DIGITAL LIBRARY OF EMOTIONS
+        </p>
+
+        <h1 class="poetry-font text-6xl md:text-8xl font-semibold leading-tight">
+            Where Poetry <br>
+            Breathes Forever
+        </h1>
+
+        <p class="mt-8 text-gray-600 max-w-2xl mx-auto leading-8 text-lg">
+            Discover timeless Urdu and Hindi poetry,
+            immersive ghazals, nazms, and soulful shers
+            from legendary poets and modern writers.
+        </p>
+
+        <div class="mt-10 flex justify-center gap-4 flex-wrap">
+
+            <button class="px-8 py-4 bg-[#1f1f1f] text-white rounded-full hover:opacity-90 transition">
+                Explore Poetry
+            </button>
+
+            <button class="px-8 py-4 border border-gray-400 rounded-full hover:bg-gray-100 transition">
+                Featured Poets
+            </button>
+
+            <a
+                href="{% url 'submit_writing' %}"
+                class="px-8 py-4 bg-[#6b2d2d] text-white rounded-full hover:opacity-90 transition"
+            >
+                Submit Writing
+            </a>
+
+        </div>
+
+        <!-- COMMUNITY STATS -->
+
+        <div class="mt-16 flex justify-center gap-10 flex-wrap text-center">
+
+            <div>
+                <p class="poetry-font text-4xl font-semibold">
+                    {{ featured_poets|length }}+
+                </p>
+                <p class="text-gray-500 text-sm">
+                    Featured Poets
+                </p>
+            </div>
+
+            <div>
+                <p class="poetry-font text-4xl font-semibold">
+                    {{ trending_writings|length }}+
+                </p>
+                <p class="text-gray-500 text-sm">
+                    Recent Writings
+                </p>
+            </div>
+
+            <div>
+                <p class="poetry-font text-4xl font-semibold">
+                    Community
+                </p>
+                <p class="text-gray-500 text-sm">
+                    Contributions Welcome
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURED POETS -->
+<section class="py-24 px-6">
+
+    <div class="max-w-7xl mx-auto">
+
+        <div class="mb-14">
+            <h2 class="poetry-font text-5xl font-semibold">
+                Featured Poets
+            </h2>
+
+            <p class="text-gray-600 mt-4">
+                Voices that shaped generations through words.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            {% for poet in featured_poets %}
+
+            <a href="{% url 'poet_detail' poet.slug %}"
+               class="block bg-white border border-gray-200 rounded-3xl p-6 hover:-translate-y-1 transition duration-300">
+
+                {% if poet.image %}
+                    <img
+                        src="{{ poet.image.url }}"
+                        alt="{{ poet.name }}"
+                        class="w-20 h-20 rounded-full object-cover mb-6"
+                    >
+                {% else %}
+                    <div class="w-20 h-20 rounded-full bg-gray-200 mb-6"></div>
+                {% endif %}
+
+                <h3 class="poetry-font text-3xl font-semibold">
+                    {{ poet.name }}
+                </h3>
+
+                <p class="text-gray-600 mt-3 leading-7">
+                    {{ poet.biography|truncatewords:12 }}
+                </p>
+
+            </a>
+
+            {% empty %}
+
+            <div class="col-span-full text-center text-gray-500">
+                No poets added yet.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TRENDING WRITINGS -->
+<section class="py-24 px-6 bg-white border-y border-gray-200">
+
+    <div class="max-w-5xl mx-auto">
+
+        <div class="mb-14 text-center">
+
+            <h2 class="poetry-font text-5xl font-semibold">
+                Trending Writings
+            </h2>
+
+            <p class="text-gray-600 mt-4">
+                Recently added poetry.
+            </p>
+
+        </div>
+
+        <div class="space-y-10">
+
+            {% for writing in trending_writings %}
+
+            <div class="border border-gray-200 rounded-3xl p-10 text-center">
+
+                <p class="poetry-font text-4xl leading-relaxed">
+                    {{ writing.content|truncatewords:25 }}
+                </p>
+
+                <p class="mt-6 text-gray-500">
+                    — {{ writing.poet.name }}
+                </p>
+
+            </div>
+
+            {% empty %}
+
+            <div class="text-center text-gray-500">
+                No writings available yet.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+<section class="py-24 px-6">
+
+    <div class="max-w-6xl mx-auto text-center">
+
+        <h2 class="poetry-font text-5xl font-semibold">
+            Explore Categories
+        </h2>
+
+        <div class="mt-14 flex flex-wrap justify-center gap-4">
+
+            <span class="px-6 py-3 rounded-full bg-white border border-gray-200">
+                Ghazal
+            </span>
+
+            <span class="px-6 py-3 rounded-full bg-white border border-gray-200">
+                Nazm
+            </span>
+
+            <span class="px-6 py-3 rounded-full bg-white border border-gray-200">
+                Shayari
+            </span>
+
+            <span class="px-6 py-3 rounded-full bg-white border border-gray-200">
+                Love
+            </span>
+
+            <span class="px-6 py-3 rounded-full bg-white border border-gray-200">
+                Sadness
+            </span>
+
+            <span class="px-6 py-3 rounded-full bg-white border border-gray-200">
+                Philosophy
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

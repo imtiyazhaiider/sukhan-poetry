@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="py-20 px-6">
+
+    <div class="max-w-3xl mx-auto">
+
+        <h1 class="poetry-font text-6xl text-center mb-12">
+            Submit Writing
+        </h1>
+
+        <form method="POST" class="space-y-6">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="px-8 py-3 rounded-full bg-[#6b2d2d] text-white"
+            >
+                Submit
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

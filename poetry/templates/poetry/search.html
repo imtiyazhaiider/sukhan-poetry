@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="py-20 px-6">
+
+    <div class="max-w-5xl mx-auto">
+
+        <h1 class="poetry-font text-5xl mb-10">
+            Search
+        </h1>
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                placeholder="Search poets or writings..."
+                class="w-full border border-gray-300 rounded-2xl px-6 py-4"
+            >
+
+        </form>
+
+        {% if query %}
+
+            <div class="mt-12">
+
+                <h2 class="text-2xl font-semibold mb-6">
+                    Poets
+                </h2>
+
+                {% for poet in poets %}
+
+                    <a
+                        href="{% url 'poet_detail' poet.slug %}"
+                        class="block py-3"
+                    >
+                        {{ poet.name }}
+                    </a>
+
+                {% empty %}
+
+                    <p>No poets found.</p>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="mt-12">
+
+                <h2 class="text-2xl font-semibold mb-6">
+                    Writings
+                </h2>
+
+                {% for writing in writings %}
+
+                    <a
+                        href="{% url 'writing_detail' writing.slug %}"
+                        class="block py-3"
+                    >
+                        {{ writing.title }}
+                    </a>
+
+                {% empty %}
+
+                    <p>No writings found.</p>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

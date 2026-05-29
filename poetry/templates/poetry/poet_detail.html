@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="py-24 px-6">
+
+    <div class="max-w-6xl mx-auto">
+
+        <!-- POET HEADER -->
+
+        <div class="text-center border-b border-gray-200 pb-16">
+
+            {% if poet.image %}
+
+                <img
+                    src="{{ poet.image.url }}"
+                    alt="{{ poet.name }}"
+                    class="w-36 h-36 rounded-full object-cover mx-auto mb-8 shadow-sm"
+                >
+
+            {% else %}
+
+                <div class="w-36 h-36 rounded-full bg-gray-200 mx-auto mb-8"></div>
+
+            {% endif %}
+
+            <h1 class="poetry-font text-6xl md:text-7xl font-semibold">
+                {{ poet.name }}
+            </h1>
+
+            <div class="mt-6 flex justify-center gap-4 flex-wrap">
+
+                {% if poet.birth_year %}
+                    <span class="px-4 py-2 rounded-full border border-gray-200 text-sm">
+                        Born {{ poet.birth_year }}
+                    </span>
+                {% endif %}
+
+                {% if poet.death_year %}
+                    <span class="px-4 py-2 rounded-full border border-gray-200 text-sm">
+                        Died {{ poet.death_year }}
+                    </span>
+                {% endif %}
+
+                <span class="px-4 py-2 rounded-full border border-gray-200 text-sm">
+                    {{ writings.count }} Writings
+                </span>
+
+            </div>
+
+            {% if poet.biography %}
+
+                <div class="max-w-3xl mx-auto mt-10">
+
+                    <h2 class="poetry-font text-3xl mb-4">
+                        About the Poet
+                    </h2>
+
+                    <p class="text-gray-600 leading-8 text-lg">
+                        {{ poet.biography }}
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- WRITINGS SECTION -->
+
+        <div class="mt-20">
+
+            <div class="text-center mb-14">
+
+                <h2 class="poetry-font text-5xl font-semibold">
+                    Writings
+                </h2>
+
+                <p class="mt-4 text-gray-500">
+                    Explore the works of {{ poet.name }}
+                </p>
+
+            </div>
+
+            <div class="space-y-8">
+
+                {% for writing in writings %}
+
+                    <div class="bg-white border border-gray-200 rounded-3xl p-10 hover:shadow-md transition duration-300">
+
+                        <a href="{% url 'writing_detail' writing.slug %}">
+
+                            <h3 class="poetry-font text-3xl mb-6 text-center hover:text-[#6b2d2d] transition">
+
+                                {{ writing.title }}
+
+                            </h3>
+
+                            <p class="poetry-font text-2xl leading-relaxed text-center text-gray-800">
+
+                                {{ writing.content|truncatechars:180 }}
+
+                            </p>
+
+                        </a>
+
+                        <div class="mt-8 flex justify-center gap-3 flex-wrap">
+
+                            <span class="px-4 py-2 rounded-full border border-gray-200 text-sm">
+                                {{ writing.writing_type }}
+                            </span>
+
+                            <span class="px-4 py-2 rounded-full border border-gray-200 text-sm">
+                                {{ writing.language }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="text-center py-16">
+
+                        <p class="text-gray-500">
+                            No writings available yet.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
