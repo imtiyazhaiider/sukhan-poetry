@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="py-20 px-6">
+
+    <div class="max-w-4xl mx-auto">
+
+        <div class="text-center mb-12">
+
+            <h1 class="poetry-font text-6xl">
+                Radeef Checker
+            </h1>
+
+            <p class="mt-4 text-gray-600">
+                Paste your ghazal and find possible radeef.
+            </p>
+
+        </div>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <textarea
+                name="poetry"
+                rows="12"
+                class="w-full border rounded-2xl p-4"
+                placeholder="Paste your poetry here..."
+            ></textarea>
+
+            <button
+                type="submit"
+                class="mt-6 px-8 py-3 bg-[#6b2d2d] text-white rounded-full"
+            >
+                Check Radeef
+            </button>
+
+        </form>
+
+        {% if result %}
+
+            <div class="mt-10 bg-white border border-gray-200 rounded-3xl p-8 text-center">
+
+                <h2 class="text-2xl font-semibold mb-4">
+                    Possible Radeef
+                </h2>
+
+                <p class="poetry-font text-5xl">
+                    {{ result }}
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

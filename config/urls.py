@@ -15,6 +15,8 @@ urlpatterns = [
 
     path('', include('accounts.urls')),
 
+    path('', include('studio.urls')),
+
 ]
 
 if settings.DEBUG:

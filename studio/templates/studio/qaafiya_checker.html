@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="py-20 px-6">
+
+    <div class="max-w-4xl mx-auto">
+
+        <div class="text-center mb-12">
+
+            <h1 class="poetry-font text-6xl">
+                Qaafiya Checker
+            </h1>
+
+            <p class="mt-4 text-gray-600">
+                Detect possible qaafiya and radeef.
+            </p>
+
+        </div>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <textarea
+                name="poetry"
+                rows="12"
+                class="w-full border rounded-2xl p-4"
+                placeholder="Paste your ghazal here..."
+            ></textarea>
+
+            <button
+                type="submit"
+                class="mt-6 px-8 py-3 bg-[#6b2d2d] text-white rounded-full"
+            >
+                Check Qaafiya
+            </button>
+
+        </form>
+
+        {% if radeef %}
+
+        <div class="mt-10 bg-white border border-gray-200 rounded-3xl p-8">
+
+            <h2 class="text-2xl font-semibold">
+                Radeef
+            </h2>
+
+            <p class="poetry-font text-4xl mt-3">
+                {{ radeef }}
+            </p>
+
+            <hr class="my-6">
+
+            <h2 class="text-2xl font-semibold">
+                Possible Qaafiya
+            </h2>
+
+            <div class="mt-4 flex flex-wrap gap-3">
+
+                {% for word in qaafiya_words %}
+
+                    <span class="px-4 py-2 border rounded-full">
+                        {{ word }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

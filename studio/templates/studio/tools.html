@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="py-20 px-6">
+
+    <div class="max-w-6xl mx-auto">
+
+        <div class="text-center mb-16">
+
+            <h1 class="poetry-font text-6xl">
+                Writer's Studio
+            </h1>
+
+            <p class="mt-4 text-gray-600">
+                Tools for poets, writers and shayars.
+            </p>
+
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+            <a href="{% url 'writing_dashboard' %}"
+               class="bg-white border border-gray-200 rounded-3xl p-8 hover:shadow-lg transition">
+
+                <h2 class="text-2xl font-semibold">
+                    📊 My Writing Journey
+                </h2>
+
+                <p class="mt-4 text-gray-600">
+                    View drafts, approvals and publishing progress.
+                </p>
+
+            </a>
+
+            <a href="{% url 'studio_editor' %}"
+               class="bg-white border border-gray-200 rounded-3xl p-8 hover:shadow-lg transition">
+
+                <h2 class="text-2xl font-semibold">
+                    ✍️ New Draft
+                </h2>
+
+                <p class="mt-4 text-gray-600">
+                    Start writing a new poem, ghazal or nazm.
+                </p>
+
+            </a>
+
+            <a href="{% url 'my_drafts' %}"
+               class="bg-white border border-gray-200 rounded-3xl p-8 hover:shadow-lg transition">
+
+                <h2 class="text-2xl font-semibold">
+                    📂 My Drafts
+                </h2>
+
+                <p class="mt-4 text-gray-600">
+                    Continue working on saved drafts.
+                </p>
+
+            </a>
+
+            <a href="{% url 'radeef_checker' %}"
+               class="bg-white border border-gray-200 rounded-3xl p-8 hover:shadow-lg transition">
+
+                <h2 class="text-2xl font-semibold">
+                    🔍 Radeef Checker
+                </h2>
+
+                <p class="mt-4 text-gray-600">
+                    Detect possible radeef from your ghazal.
+                </p>
+
+            </a>
+
+            <a href="{% url 'qaafiya_checker' %}"
+               class="bg-white border border-gray-200 rounded-3xl p-8 hover:shadow-lg transition">
+
+                <h2 class="text-2xl font-semibold">
+                    🎵 Qaafiya Checker
+                </h2>
+
+                <p class="mt-4 text-gray-600">
+                    Detect possible qaafiya patterns.
+                </p>
+
+            </a>
+
+            <div class="bg-gray-100 border border-gray-200 rounded-3xl p-8">
+
+                <h2 class="text-2xl font-semibold">
+                    📏 Behr Checker
+                </h2>
+
+                <p class="mt-4 text-gray-600">
+                    Coming Soon
+                </p>
+
+            </div>
+
+            <div class="bg-gray-100 border border-gray-200 rounded-3xl p-8">
+
+                <h2 class="text-2xl font-semibold">
+                    🧩 Rukn Analyzer
+                </h2>
+
+                <p class="mt-4 text-gray-600">
+                    Coming Soon
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

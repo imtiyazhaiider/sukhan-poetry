@@ -5,7 +5,8 @@ from .models import (
     Poet,
     Writing,
     Category,
-    Submission
+    Submission,
+    Favorite
 )
 
 
@@ -50,6 +51,21 @@ class CategoryAdmin(admin.ModelAdmin):
 
     list_display = (
         'name',
+    )
+
+
+@admin.register(Favorite)
+class FavoriteAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'user',
+        'writing',
+        'created_at'
+    )
+
+    search_fields = (
+        'user__username',
+        'writing__title'
     )
 
 
@@ -122,7 +138,7 @@ class SubmissionAdmin(admin.ModelAdmin):
                 obj.title
             )
 
-            writing = Writing.objects.create(
+            Writing.objects.create(
                 title=obj.title,
                 slug=writing_slug,
                 poet=poet,

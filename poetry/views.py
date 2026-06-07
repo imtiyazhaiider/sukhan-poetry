@@ -4,11 +4,12 @@ from django.shortcuts import (
     redirect
 )
 
-from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from .models import (
     Poet,
-    Writing
+    Writing,
+    Favorite
 )
 
 from .forms import SubmissionForm
@@ -44,8 +45,18 @@ def writing_detail(request, slug):
         slug=slug
     )
 
+    is_favorite = False
+
+    if request.user.is_authenticated:
+
+        is_favorite = Favorite.objects.filter(
+            user=request.user,
+            writing=writing
+        ).exists()
+
     context = {
         'writing': writing,
+        'is_favorite': is_favorite,
     }
 
     return render(
@@ -128,4 +139,34 @@ def submit_writing(request):
         request,
         'poetry/submit_writing.html',
         context
+    )
+
+
+@login_required
+def toggle_favorite(request, writing_id):
+
+    writing = get_object_or_404(
+        Writing,
+        id=writing_id
+    )
+
+    favorite = Favorite.objects.filter(
+        user=request.user,
+        writing=writing
+    )
+
+    if favorite.exists():
+
+        favorite.delete()
+
+    else:
+
+        Favorite.objects.create(
+            user=request.user,
+            writing=writing
+        )
+
+    return redirect(
+        'writing_detail',
+        slug=writing.slug
     )
